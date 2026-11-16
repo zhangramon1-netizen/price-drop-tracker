@@ -1,4 +1,5 @@
 // JavaScript: the BEHAVIOR. It reacts to what you do on the page.
+import { priceDrop, shouldRebook, formatMoney } from "./logic.js";
 
 // Where we save data. localStorage is a small storage area inside YOUR browser,
 // so bookings survive a refresh. (Later we'll move this to a real server so alerts can work.)
@@ -24,7 +25,7 @@ const form = document.getElementById("booking-form");
 const listEl = document.getElementById("booking-list");
 const emptyEl = document.getElementById("empty");
 
-const money = (n) => "$" + Number(n).toFixed(2);
+const money = formatMoney;
 
 // When the form is submitted, add a booking.
 form.addEventListener("submit", (event) => {
@@ -80,14 +81,14 @@ function render() {
     row.append(priceInput);
 
     // If the current price is lower than what you paid, show the savings.
-    if (b.currentPrice !== null && b.currentPrice < b.paid) {
-      const saved = b.paid - b.currentPrice;
+    const saved = priceDrop(b.paid, b.currentPrice);
+    if (saved > 0) {
       const note = document.createElement("span");
       note.className = "drop";
       note.textContent = `⬇ Dropped ${money(saved)}`;
       row.append(note);
 
-      if (b.refundable) {
+      if (shouldRebook(b)) {
         const badge = document.createElement("span");
         badge.className = "badge";
         badge.textContent = "Rebook to save!";
