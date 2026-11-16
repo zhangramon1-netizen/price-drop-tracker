@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<!-- HTML = the STRUCTURE of the page: what things exist (headings, forms, lists). -->
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Price Drop Tracker</title>
+  <link rel="stylesheet" href="style.css" /> <!-- CSS = how it LOOKS -->
+</head>
+<body>
+  <main>
+    <h1>Price Drop Tracker</h1>
+    <p class="subtitle">Log a flight or hotel you booked. We'll flag when the price falls.</p>
+
+    <!-- The form where you log a booking -->
+    <form id="booking-form">
+      <label>Type
+        <select id="type">
+          <option value="flight">Flight</option>
+          <option value="hotel">Hotel</option>
+        </select>
+      </label>
+
+      <label>Name or route
+        <input id="name" required placeholder="e.g. LAX → JFK, or Hilton Midtown" />
+      </label>
+
+      <label>Travel date
+        <input id="date" type="date" required />
+      </label>
+
+      <label>Price you paid ($)
+        <input id="paid" type="number" min="0" step="0.01" required />
+      </label>
+
+      <label class="checkbox">
+        <input id="refundable" type="checkbox" />
+        Free cancellation / rebooking allowed
+      </label>
+
+      <button type="submit">Add booking</button>
+    </form>
+
+    <h2>Your bookings</h2>
+    <ul id="booking-list"></ul>
+    <p id="empty" class="muted">Nothing logged yet.</p>
+  </main>
+
+  <script src="app.js"></script> <!-- JavaScript = how it BEHAVES -->
+</body>
+</html>
